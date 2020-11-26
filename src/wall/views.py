@@ -27,7 +27,7 @@ class PostView(CreateRetrieveUpdateDestroy):
                                     'update': [IsAuthor],
                                     'destroy': [IsAuthor]}
 
-    # lookup_url_kwarg = 'pkk'
+    # lookup_url_kwarg = 'pkk' # kekw for dev
 
     def get_queryset(self):
         return Post.objects.filter(id=self.kwargs.get('pk')).select_related('user').prefetch_related('comments')
