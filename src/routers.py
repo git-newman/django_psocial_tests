@@ -18,4 +18,5 @@ urlpatterns = [
     path('', include('src.profiles.urls')),
     path('swagger/', schema_view.with_ui()),
     path('wall/', include('src.wall.urls')),
+    path('follower/', include('src.followers.urls')),
 ]
