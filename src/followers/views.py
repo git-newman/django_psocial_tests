@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics, permissions, views, response
 from .models import Follower
 from .serializers import ListFollowerSerializer
@@ -24,7 +25,7 @@ class FollowerView(views.APIView):
     def post(self, request, pk):
         try:
             user = UserNet.objects.get(id=pk)
-        except Follower.DoesNotExist:
+        except ObjectDoesNotExist:
             return response.Response(status=404)
 
         Follower.objects.create(subscriber=request.user, user=user)
@@ -33,7 +34,7 @@ class FollowerView(views.APIView):
     def delete(self, request, pk):
         try:
             sub = Follower.objects.get(subscriber=request.user, user_id=pk)
-        except Follower.DoesNotExist:
+        except ObjectDoesNotExist:
             return response.Response(status=404)
         sub.delete()
         return response.Response(status=204)
